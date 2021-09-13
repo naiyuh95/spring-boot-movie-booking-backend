@@ -11,7 +11,7 @@ class ApiError {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
     private String message;
-    private String debugMessage;
+
 
 
     private ApiError() {
@@ -26,23 +26,16 @@ class ApiError {
     ApiError(HttpStatus status, Throwable ex) {
         this();
         this.status = status;
-        this.debugMessage = ex.getLocalizedMessage();
+        this.message = "Error Occured, please refresh page and try again.";
     }
 
     ApiError(HttpStatus status, String message, Throwable ex) {
         this();
         this.status = status;
         this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
-	public String getDebugMessage() {
-		return debugMessage;
-	}
 
-	public void setDebugMessage(String debugMessage) {
-		this.debugMessage = debugMessage;
-	}
 
 	public HttpStatus getStatus() {
 		return status;

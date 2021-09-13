@@ -31,11 +31,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     void updateSeatsToBlocked(@Param("seatIdList") List<Long> seatIdList, @Param("now") Timestamp now, @Param("expire") Timestamp expire);
 
     @Modifying
-    @Query(value="update reservation r set r.reservation_status = 'OPEN' r.reservation_start_timestamp = NULL and  r.reservation_end_timestamp = NULL where r.reservation_end_timestamp < now() and r.reservation_status <> 'BLOCKED'",nativeQuery =true)
+    @Query(value="update reservation r set r.reservation_status = 'OPEN', r.reservation_start_timestamp = NULL ,  r.reservation_end_timestamp = NULL where r.reservation_end_timestamp < now() and r.reservation_status = 'PENDING'",nativeQuery =true)
     int clearExpiredBlockedReservations();
 
     @Modifying
-    @Query(value="update reservation  r set r.reservation_status = 'CONFIRMED' , r.customer_id = :customerId, r.reservation_end_timestamp = NULL,r.reservation_start_timestamp = NULL,r.reservation_confirmed_date = :now where r.seat_id in (:seatIdList) and r.reservation_status = 'BLOCKED'",nativeQuery =true)
+    @Query(value="update reservation  r set r.reservation_status = 'CONFIRMED' , r.customer_id = :customerId, r.reservation_end_timestamp = NULL,r.reservation_start_timestamp = NULL,r.reservation_confirmed_date = :now where r.seat_id in (:seatIdList) and r.reservation_status = 'PENDING'",nativeQuery =true)
     void confirmBooking(@Param("seatIdList") List<Long> seatIdList,@Param("customerId") long customerId,@Param("now") Timestamp now);
 
     

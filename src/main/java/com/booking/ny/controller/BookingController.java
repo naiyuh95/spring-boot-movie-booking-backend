@@ -100,12 +100,12 @@ public class BookingController {
 
 
     	
-	// @Scheduled(cron = "0 0,5 * * * * ?")
-	// public void clearExpiredBlockedReservations() {
-	// 	System.out.println("*** Clearing blocked reservations that have expired ***");
-	// 	bookingService.clearExpiredBlockedReservations();
-    //     System.out.println("*** Clearing blocked reservations that have expired ***");
-	// }
+	@Scheduled(cron = "0 0/5 * * * ?")
+	public void clearExpiredBlockedReservations() {
+		System.out.println("*** Clearing blocked reservations that have expired ***");
+		bookingService.clearExpiredBlockedReservations();
+        System.out.println("*** Clearing blocked reservations that have expired ***");
+	}
 
     
     //get customer by username
@@ -124,7 +124,7 @@ public class BookingController {
         System.out.println(confirmSeatListBody);
         System.out.println(confirmSeatListBody.getCustomerDTO());
         System.out.println(confirmSeatListBody.getSeats());
-        JSONObject jsonObject = bookingService.confirmBooking(confirmSeatListBody.getCustomerDTO(),confirmSeatListBody.getSeats());
+        JSONObject jsonObject = bookingService.confirmBooking(confirmSeatListBody);
         return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
     }
 

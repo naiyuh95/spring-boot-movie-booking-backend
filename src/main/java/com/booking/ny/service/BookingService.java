@@ -21,6 +21,7 @@ import com.booking.ny.model.MovieDTO;
 import com.booking.ny.repository.CustomerRepository;
 import com.booking.ny.repository.MovieRepository;
 import com.booking.ny.repository.SeatRepository;
+import com.booking.ny.wrapper.ConfirmSeatListBody;
 import com.booking.ny.repository.ReservationRepository;
 import com.booking.ny.error.MissingCustomerError;
 // import com.booking.ny.repository.SeatReservedRepository;
@@ -52,7 +53,8 @@ public class BookingService {
 
     // @Autowired
     // private SeatReservedRepository seatReservedRepository;
-
+    @Autowired
+    private EmailSendService emailService;
     
     ModelMapper modelMapper = new ModelMapper();
 
@@ -312,10 +314,24 @@ public class BookingService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public JSONObject confirmBooking(CustomerDTO customerDTO,List<Long> seatIdList) throws Exception{
+    public JSONObject confirmBooking(ConfirmSeatListBody confirmSeatListBody) throws Exception{
         JSONObject returnJSONObject = new JSONObject();
         ModelMapper modelMapper = new ModelMapper();
-        
+        CustomerDTO customerDTO = confirmSeatListBody.getCustomerDTO();
+        List<Long> seatIdList = confirmSeatListBody.getSeats();
+        String[] seatNames = confirmSeatListBody.getSeatNames();
+        double totalAmount = confirmSeatListBody.getTotalAmount();
+        String movieName = confirmSeatListBody.getMovieName();
+        String movieLink = confirmSeatListBody.getMoviePosterlink();
+        System.out.println(customerDTO.getCustomerName());
+        System.out.println(customerDTO.getContactNumber());
+        System.out.println(customerDTO.getEmail());
+        System.out.println(seatIdList);
+        System.out.println(seatNames);
+        System.out.println(totalAmount);
+        System.out.println(movieName);
+        System.out.println(movieLink);
+
 
         if(customerDTO!=null){
             Customer customer = modelMapper.map(customerDTO, Customer.class);
@@ -324,9 +340,11 @@ public class BookingService {
             Customer customerSaved= customerRepository.saveAndFlush(customer);
             Timestamp now = new Timestamp(System.currentTimeMillis());
             reservationRepository.confirmBooking(seatIdList,customerSaved.getCustomerId(),now);
+            emailService.sendEmail(seatNames, totalAmount, movieName, movieLink,customerSaved.getCustomerName(),customerSaved.getEmail());
         }else{
             throw new MissingCustomerError(); 
         }
+        
         
         return returnJSONObject;
     }
