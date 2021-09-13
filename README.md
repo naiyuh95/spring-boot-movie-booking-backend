@@ -18,7 +18,7 @@ Set up database
 To create local database for connection: https://dev.mysql.com/doc/workbench/en/wb-getting-started-tutorial-create-connection.html 
 Create with username `root` and password `password` with port `3306`
 
-Run the SQL script (Script.sql)
+Run the SQL script (Script.sql located in scripts folder)
 
 
 BackEnd
