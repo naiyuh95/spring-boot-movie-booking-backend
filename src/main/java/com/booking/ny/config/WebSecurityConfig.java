@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		public CorsFilter corsFilter() {
 			final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 			final CorsConfiguration config = new CorsConfiguration();
-			config.addAllowedOrigin("http://localhost:3000");
+			config.addAllowedOrigin("https://hackit-submission-frontend-ny.herokuapp.com/");
 			config.addAllowedMethod("*");
 			config.addAllowedHeader("*");
 			source.registerCorsConfiguration("/**", config);
