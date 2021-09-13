@@ -26,7 +26,7 @@ public class EmailSendService {
     private SpringTemplateEngine templateEngine;
 
     @Value("${spring.mail.username}")
-	private String sendTo;
+	private String sendFrom;
 
     public void sendEmail(String[] seats, double amount, String movieName, String movielink,String customerName,String email) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
@@ -45,10 +45,10 @@ public class EmailSendService {
 
     
         String html = templateEngine.process("template", context);
-        helper.setTo(sendTo);
+        helper.setTo(email);
         helper.setText(html, true);
         helper.setSubject("Booking Confirmation");
-        helper.setFrom(email);
+        helper.setFrom(sendFrom);
 
         emailSender.send(message);
     }
