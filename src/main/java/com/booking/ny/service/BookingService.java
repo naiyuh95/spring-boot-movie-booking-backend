@@ -253,18 +253,21 @@ public class BookingService {
 
 
 
-        if(customerDTO!=null){
-            Customer customer = modelMapper.map(customerDTO, Customer.class);
-            //Customer customer = new Customer(customerDTO.getCustomerName(),customerDTO.getUserName(),customerDTO.getEmail());
-            
-            Customer customerSaved= customerRepository.saveAndFlush(customer);
-            Timestamp now = new Timestamp(System.currentTimeMillis());
-            reservationRepository.confirmBooking(seatIdList,customerSaved.getCustomerId(),now);
-            emailService.sendEmail(seatNames, totalAmount, movieName, movieLink,customerSaved.getCustomerName(),customerSaved.getEmail());
-        }else{
-            throw new MissingCustomerError(); 
-        }
+        Customer customer = modelMapper.map(customerDTO, Customer.class);
+        //Customer customer = new Customer(customerDTO.getCustomerName(),customerDTO.getUserName(),customerDTO.getEmail());
+        System.out.println("===========");
+        Customer customerSaved= customerRepository.saveAndFlush(customer);
         
+
+        
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        System.out.println("===========");
+        
+        reservationRepository.confirmBooking(seatIdList,customerSaved.getCustomerId(),now);
+        System.out.println("===========");
+        emailService.sendEmail(seatNames, totalAmount, movieName, movieLink,customerSaved.getCustomerName(),customerSaved.getEmail());
+    
+    
         
         return returnJSONObject;
     }
