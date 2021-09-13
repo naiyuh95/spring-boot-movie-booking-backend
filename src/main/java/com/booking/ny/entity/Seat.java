@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,31 +44,27 @@ public class Seat {
   @JoinColumn( name="movie_id", nullable=false )
   private Movie movie;
 
-  // @OneToMany(cascade=CascadeType.ALL)
-  // @JoinColumn(name="seat_reserved_id")
-  // private List<SeatReserved> seatReserved;
-
-    // @Column(name = "seat_columns", unique = false, nullable = false)
-  // private int seatColumns;
-
-  // @Column(name = "status", unique = false, nullable = false, length = 50)
-  // private String status;
-
-
-  // @Column(name = "seat_rows", unique = false, nullable = false)
-  // private int seatRows;
-
 
 
   public Seat(){}
 
-  public Seat(String seatType, int seatNumber,double price, Movie movie, String seatName) {
+  public Seat(String seatType, int seatNumber,double price, String seatName) {
 
     this.seatType = seatType;
     this.seatNumber = seatNumber;
     this.price = price;
     this.seatName = seatName;
   }
+  public Seat(String seatType, int seatNumber,double price, Movie movie, String seatName) {
+
+    this.seatType = seatType;
+    this.seatNumber = seatNumber;
+    this.price = price;
+    this.seatName = seatName;
+    this.movie = movie;
+  }
+
+
 
 
   public int getSeatId() {
@@ -84,13 +79,6 @@ public class Seat {
     return this.seatNumber;
   }
   
-  // public int getSeatColumns() {
-  //   return this.seatColumns;
-  // }
-
-  // public String getStatus() {
-  //   return this.status;
-  // }
 
   public double getPrice() {
     return this.price;
@@ -101,9 +89,7 @@ public class Seat {
   }
 
 
-  // public int getSeatRows() {
-  //   return this.seatRows;
-  // }
+
 
   public List<Reservation> getReservation() {
     return this.reservation;
@@ -141,26 +127,6 @@ public class Seat {
     this.reservation = reservation;
   }
 
-  @Override
-  public boolean equals(Object o) {
 
-    if (this == o)
-      return true;
-    if (!(o instanceof Seat))
-      return false;
-    Seat seat = (Seat) o;
-    return Objects.equals(this.seatId, seat.seatId) && Objects.equals(this.seatType, seat.seatType)
-        && Objects.equals(this.seatNumber, seat.seatNumber) ; 
-  }
 
-  // @Override
-  // public int hashCode() {
-  //   return Objects.hash(this.seatId, this.seatType, this.seatNumber);
-  // }
-
-  // @Override
-  // public String toString() {
-  //   return "Seat{" + "id=" + this.seatId + ", Seat Type='" + this.seatType + '\'' + ", Seat Number='" + this.seatNumber + '\'' 
-  //   + '}';
-  // }
 }

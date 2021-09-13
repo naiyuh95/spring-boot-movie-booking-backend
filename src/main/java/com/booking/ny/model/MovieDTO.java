@@ -1,6 +1,7 @@
 package com.booking.ny.model;
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +23,14 @@ public class MovieDTO {
 	private int duration;
 	@NotBlank(message = "Movie genre cannot be blank")
 	private String genre;
-	@NotNull(message = "Movie Release Date cannot be null")
-	private Date release_date;
+  @NotNull(message = "Movie start time cannot be null")
+  private Timestamp startTime;
+
+  @NotNull(message = "Movie release date cannot be null")
+  private Date releaseDate;
+
+  @NotBlank(message = "Movie poster link cannot be blank")
+  private String moviePosterLink;
 
 
   public Long getMovieId() {
@@ -46,9 +53,19 @@ public class MovieDTO {
     return this.genre;
   }
 
-  public Date getReleaseDate() {
-    return this.release_date;
+  public String getMoviePosterLink() {
+    return this.moviePosterLink;
   }
+
+  public Date getReleaseDate() {
+    return this.releaseDate;
+  }
+
+  public Timestamp getStartTime() {
+    return this.startTime;
+  }
+
+
 
 
 
@@ -72,9 +89,19 @@ public class MovieDTO {
     this.genre = genre;
   }
 
-  public void setReleaseDate(Date release_date) {
-    this.release_date = release_date;
+  public void setReleaseDate(Date releaseDate) {
+    this.releaseDate = releaseDate;
   }
+
+  public void setStartTime(Timestamp startTime) {
+    this.startTime = startTime;
+  }
+
   
+  public void setMoviePosterLink(String moviePosterLink) {
+    this.moviePosterLink =  moviePosterLink;
+  }
+
+
 
 }

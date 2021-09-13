@@ -50,13 +50,6 @@ public class BookingController {
         return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
     }
 
-    // //get seats available
-    // @RequestMapping(value = "booking/getSeatsAvailable", method = RequestMethod.GET, produces = "application/json")
-    // @ResponseBody
-    // public ResponseEntity<?> getSeatsAvailable(@PathVariable("movieName") String movieName){
-    //     JSONObject jsonObject = bookingService.getSeatsAvailableByMovieName(movieName);
-    //     return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
-    // }
 
 
     
@@ -65,38 +58,12 @@ public class BookingController {
     @RequestMapping(value = "booking/reserveSeat", method = RequestMethod.POST, produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> reserveSeat(@Valid @RequestBody ReserveSeatListBody reserveSeatListBody) throws SeatsNotAvailableException,Exception{
-        System.out.println(reserveSeatListBody.getSeats());
-        System.out.println(reserveSeatListBody);
+
         JSONObject jsonObject = bookingService.reserveSeat(reserveSeatListBody.getSeats());
         return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
     }
 
 
-    // //confirm the seats
-    // @RequestMapping(value = "booking/confirmSeat", method = RequestMethod.POST, produces = "application/json")
-    // @ResponseBody
-    // public ResponseEntity<?> confirmSeat(@Valid @RequestBody ConfirmSeatListBody ceserveSeatListBody) throws Exception{
-        
-    //     JSONObject jsonObject = bookingService.confirmSeat(ConfirmSeatListBody.getSeatIdList(),ConfirmSeatListBody.getCustomerId());
-    //     return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
-    // }
-
-
-    //test row locking and transaction serializable
-    @RequestMapping(value = "testLocking", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public ResponseEntity<?> testLocking() throws Exception{
-        JSONObject jsonObject = bookingService.testLock();
-        return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
-    }
-
-    //test row locking and transaction serializable
-    @RequestMapping(value = "testLocking2", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public ResponseEntity<?> testLocking2() throws Exception{
-        JSONObject jsonObject = bookingService.testLock2();
-        return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
-    }
 
 
     	
@@ -120,22 +87,11 @@ public class BookingController {
     @RequestMapping(value = "booking/confirm", method = RequestMethod.POST, produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> confirmBooking(@Valid @RequestBody ConfirmSeatListBody confirmSeatListBody) throws Exception{
-        System.out.println("--------------------------------------");
-        System.out.println(confirmSeatListBody);
-        System.out.println(confirmSeatListBody.getCustomerDTO());
-        System.out.println(confirmSeatListBody.getSeats());
         JSONObject jsonObject = bookingService.confirmBooking(confirmSeatListBody);
         return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
     }
 
 
-    // // add customer into db    
-    // @RequestMapping(value = "booking/addCustomer", method = RequestMethod.POST, produces = "application/json")
-    // @ResponseBody
-    // public ResponseEntity<?> addCustomer(@Valid @PathVariable("seatCode") CustomerDTO customerDTO) throws JSONException{
-    //     JSONObject jsonObject = bookingService.addCustomer(customerDTO);
-    //     return new ResponseEntity<>(jsonObject.toString(),HttpStatus.OK);
-    // }
 
 
     //get all customer

@@ -104,30 +104,10 @@ public class BookingService {
      public JSONObject reserveSeat(List<Long> seatIdList) throws Exception{
         
 
-
-
          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-
-
-
-         System.out.println(seatIdList.get(0));
-         System.out.println("AXAXAXAX");
-
-         //lock seats for update
          List<Reservation> selectedSeats = reservationRepository.lockSeatsForUpdate(seatIdList);
         
-         //delay 10s
-         long expectedtime = System.currentTimeMillis()+10000;
-         while (true) {//Or any Loops
-            if(System.currentTimeMillis() == expectedtime){
-                break;
-            }
- 
-         }
-         
-
-
          if(selectedSeats.size() != seatIdList.size()){
             //lock seats for up
            throw new SeatsNotAvailableException();
@@ -143,59 +123,6 @@ public class BookingService {
          returnJSONObject.put("Success",seatIdList);
          return returnJSONObject;
      }
-
-
-     
-    @Transactional(rollbackFor = Exception.class, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
-    public JSONObject testLock() throws Exception{
-
-        
-        List<Long> seatIdList = new ArrayList<>();
-        seatIdList.add((long) 4);
-        seatIdList.add((long) 5);
-    
-        //lock seats for update
-        List<Reservation> selectedSeats = reservationRepository.lockSeatsForUpdates(seatIdList);
-        
-        //delay 60s
-        long expectedtime = System.currentTimeMillis()+40000;
-        while (true) {//Or any Loops
-           if(System.currentTimeMillis() == expectedtime){
-               break;
-           }
-
-        }
-        
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(selectedSeats);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        if(selectedSeats.size() != seatIdList.size()){
-           //lock seats for up
-          throw new Exception("Seats are not available, pls refresh page and try again");
-        }
-
-        JSONObject returnJSONObject = new JSONObject();
-        returnJSONObject.put("Locking Over",selectedSeats.get(0).getReservationStatus());
-        return returnJSONObject;
-    }
-
-         
-    @Transactional(rollbackFor = Exception.class, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
-    public JSONObject testLock2() throws Exception{
-
-        
-        
-    
-        //lock seats for update
-        List<Reservation> selectedSeats = reservationRepository.findAll();
-        
-     
-        
-
-        JSONObject returnJSONObject = new JSONObject();
-        returnJSONObject.put("TESTTEST",selectedSeats.size());
-        return returnJSONObject;
-    }
 
 
 
@@ -323,14 +250,7 @@ public class BookingService {
         double totalAmount = confirmSeatListBody.getTotalAmount();
         String movieName = confirmSeatListBody.getMovieName();
         String movieLink = confirmSeatListBody.getMoviePosterlink();
-        System.out.println(customerDTO.getCustomerName());
-        System.out.println(customerDTO.getContactNumber());
-        System.out.println(customerDTO.getEmail());
-        System.out.println(seatIdList);
-        System.out.println(seatNames);
-        System.out.println(totalAmount);
-        System.out.println(movieName);
-        System.out.println(movieLink);
+
 
 
         if(customerDTO!=null){

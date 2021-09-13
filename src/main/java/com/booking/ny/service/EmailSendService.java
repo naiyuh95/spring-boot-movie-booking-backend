@@ -45,7 +45,6 @@ public class EmailSendService {
 
     
         String html = templateEngine.process("template", context);
-        System.out.println(html);
         helper.setTo(sendTo);
         helper.setText(html, true);
         helper.setSubject("Booking Confirmation");

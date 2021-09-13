@@ -1,27 +1,33 @@
 package com.booking.ny.model;
-import java.util.Objects;
-
-import java.util.Date;
-import java.util.List;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SeatDTO {
 
 
-  @Min(value= 0, message = "Seat id must be greater or equal to 0")
+  @Min(value= 1, message = "Seat id must be greater or equal to 1")
 	private int seatId;
 	@NotBlank(message = "Seat Type cannot be blank")
 	private String seatType;
-	@Min(value= 0,message = "Seat columns must be greater or equal to 0")
-	private int seatColumns;
-	@Min(value= 0,message = "Seat rows must be greater or equal to 0")
-	private int seatRows;
+	@Min(value= 1,message = "Seat Number must be greater or equal to 1")
+  private int seatNumber;
+	@NotBlank(message = "Seat Name cannot be blank")
+	private String seatName;
+  @Min(value= 0, message = "Seat price must be greater or equal to 0")
+  private double price;
 
+
+  public SeatDTO(){}
+
+  public SeatDTO(String seatType, int seatNumber,double price, String seatName) {
+
+    this.seatType = seatType;
+    this.seatNumber = seatNumber;
+    this.price = price;
+    this.seatName = seatName;
+  }
 
 
   public int getSeatId() {
@@ -32,15 +38,18 @@ public class SeatDTO {
     return this.seatType;
   }
 
-  public int getSeatColumns() {
-    return this.seatColumns;
+  public int getSeatNumber() {
+    return this.seatNumber;
+  }
+  
+
+  public double getPrice() {
+    return this.price;
   }
 
-  public int getSeatRows() {
-    return this.seatRows;
+  public String getSeatName() {
+    return this.seatName;
   }
-
-
 
 
   public void setSeatId(int seatId) {
@@ -51,13 +60,21 @@ public class SeatDTO {
     this.seatType = seatType;
   }
 
-  public void setSeatColumns(int seatColumns) {
-    this.seatColumns = seatColumns;
+  public void setSeatName(String seatName) {
+    this.seatName = seatName;
   }
 
-  public void setSeatRows(int seatRows) {
-    this.seatRows = seatRows;
+  public void setSeatNumber(int seatNumber) {
+    this.seatNumber = seatNumber;
   }
+
+
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+
 
 
 

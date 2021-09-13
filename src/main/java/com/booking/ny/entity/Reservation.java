@@ -140,41 +140,5 @@ public class Reservation {
     this.customer = customer;
   }
 
-  // public List<SeatReserved> getSeatReserved() {
-  //   return this.seatReservedList;
-  // }
 
-  // public void setSeatReserved(List<SeatReserved> seatReserved) {
-  //   this.seatReservedList = seatReservedList;
-  // }
-
-
-
-
-  // @Override
-  // public boolean equals(Object o) {
-
-  //   if (this == o)
-  //     return true;
-  //   if (!(o instanceof Reservation))
-  //     return false;
-  //   Reservation reservation = (Reservation) o;
-  //   return Objects.equals(this.reservationConfirmedTimeStamp, reservation.reservationConfirmedTimeStamp) &&
-  //   Objects.equals(this.reservationStartTimeStamp, reservation.reservationStartTimeStamp) &&
-  //   Objects.equals(this.reservationEndTimeStamp, reservation.reservationEndTimeStamp) &&
-  //   Objects.equals(this.reservationStatus, reservation.reservationStatus) &&
-  //   Objects.equals(this.reservationConfirmedTimeStamp, reservation.reservationConfirmedTimeStamp); 
-  // }
-
-
-
-  // @Override
-  // public int hashCode() {
-  //   return Objects.hash(this.reservationTimeStamp);
-  // }
-
-  // @Override
-  // public String toString() {
-  //   return "Reservation{" + "id=" + this.reservationId + ", Reservation Date='" + this.reservationTimeStamp +  '}';
-  // }
 }
