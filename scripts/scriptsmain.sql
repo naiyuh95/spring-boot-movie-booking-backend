@@ -1,16 +1,14 @@
-/* create table -- movie booking 
-*/
 
 CREATE SCHEMA `moviedb` DEFAULT CHARACTER SET utf8mb4 ;
 
 USE  moviedb;
-CREATE TABLE CUSTOMER (customer_id int primary key NOT NULL AUTO_INCREMENT, 
+CREATE TABLE customer (customer_id int primary key NOT NULL AUTO_INCREMENT, 
                         customer_name VARCHAR(50) NOT NULL,
                         contact_number INT NOT NULL,
                         email VARCHAR(50) NOT NULL UNIQUE
                         );   
 
-CREATE TABLE MOVIE (movie_id int primary key NOT NULL AUTO_INCREMENT,  
+CREATE TABLE movie (movie_id int primary key NOT NULL AUTO_INCREMENT,  
 						movie_name VARCHAR(50) NOT NULL,
                         description VARCHAR(200) NOT NULL,
                         duration INT NOT NULL,
@@ -19,36 +17,36 @@ CREATE TABLE MOVIE (movie_id int primary key NOT NULL AUTO_INCREMENT,
                         movie_poster_link VARCHAR(200) NOT NULL,
                         start_time DATETIME NOT NULL
                         );  
- CREATE TABLE SEAT (seat_id int primary key NOT NULL AUTO_INCREMENT,  
+ CREATE TABLE seat (seat_id int primary key NOT NULL AUTO_INCREMENT,  
                         seat_type VARCHAR(50) NOT NULL,
                         seat_number int NOT NULL,
                         price double NOT NULL,
                         seat_name VARCHAR(50) NOT NULL,
                         movie_id int NOT NULL,
-                        CONSTRAINT seat_movieid_fk FOREIGN KEY (movie_id) REFERENCES MOVIE(movie_id));   
+                        CONSTRAINT seat_movieid_fk FOREIGN KEY (movie_id) REFERENCES movie(movie_id));   
                         
 
-CREATE TABLE RESERVATION (reservation_id int primary key NOT NULL AUTO_INCREMENT,  
+CREATE TABLE reservation (reservation_id int primary key NOT NULL AUTO_INCREMENT,  
                         reservation_confirmed_date DATETIME,
                         reservation_start_timestamp DATETIME,
                         reservation_end_timestamp DATETIME,
                         reservation_status varchar(50) NOT NULL,
                         customer_id int,
                         seat_id int NOT NULL,
-                        CONSTRAINT reservation_seat_id_fk FOREIGN KEY (seat_id) REFERENCES SEAT(seat_id),   
-                        CONSTRAINT reservation_customerid_fk FOREIGN KEY (customer_id) REFERENCES CUSTOMER(customer_id));   
+                        CONSTRAINT reservation_seat_id_fk FOREIGN KEY (seat_id) REFERENCES seat(seat_id),   
+                        CONSTRAINT reservation_customerid_fk FOREIGN KEY (customer_id) REFERENCES customer(customer_id));   
 
-ALTER TABLE RESERVATION ADD INDEX (seat_id);
-ALTER TABLE RESERVATION ADD INDEX (reservation_status);
+ALTER TABLE reservation ADD INDEX (seat_id);
+ALTER TABLE reservation ADD INDEX (reservation_status);
 
 
 
 -- 6 halls -> will be using only one              
-INSERT INTO CUSTOMER( customer_id,  customer_name,contact_number,email)
+INSERT INTO customer( customer_id,  customer_name,contact_number,email)
 				VALUES  
                 (1,'customer1',91234567,'customerOne@mail.com');
 
-INSERT INTO MOVIE( movie_id,  movie_name, description,duration, genre,release_date,start_time,movie_poster_link)
+INSERT INTO movie( movie_id,  movie_name, description,duration, genre,release_date,start_time,movie_poster_link)
 				VALUES  
                 (1,'Dune','Testing...',120,'Adventure','2021-11-30','2021-11-30 19:00:00','https://backend-movie-pic.s3.ap-southeast-1.amazonaws.com/dune.jpg'),
                 (2,'Jaws','A police chief, a marine scientist and a fisherman spring into action after a white shark terrorises the inhabitants of Amity, a quiet island.',124,'Thriller','2021-9-18','2021-9-20 19:00:00','https://backend-movie-pic.s3.ap-southeast-1.amazonaws.com/jaw.jpg'),
@@ -56,7 +54,7 @@ INSERT INTO MOVIE( movie_id,  movie_name, description,duration, genre,release_da
 				(4,'Spiderman: Far From Home','Peter Parker, the beloved superhero Spider-Man, faces four destructive elemental monsters while on holiday in Europe. Soon, he receives help from Mysterio, a fellow hero with mysterious origins.',129,'Action','2021-9-18','2021-9-23 18:00:00','https://backend-movie-pic.s3.ap-southeast-1.amazonaws.com/spider-man-far-from-home-official-movie-posters.jpg'),
 				(5,'Spiderman: Far From Home','Peter Parker, the beloved superhero Spider-Man, faces four destructive elemental monsters while on holiday in Europe. Soon, he receives help from Mysterio, a fellow hero with mysterious origins.',129,'Action','2021-9-18','2021-9-22 21:00:00','https://backend-movie-pic.s3.ap-southeast-1.amazonaws.com/spider-man-far-from-home-official-movie-posters.jpg');
                 
-INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
+INSERT INTO seat ( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 				VALUES  
                 (1,'N',1,10,1,'A1'),
                 (2,'N',2,10,1,'A2'),
@@ -82,7 +80,7 @@ INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
                 (22,'N',22,10,1,'D4'),
                 (23,'N',23,10,1,'D5'),
                 (24,'V',24,20,1,'D6');
-INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
+INSERT INTO seat ( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 				VALUES  
                 (25,'N',1,10,2,'A1'),
                 (26,'N',2,10,2,'A2'),
@@ -108,7 +106,7 @@ INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
                 (46,'N',22,10,2,'D4'),
                 (47,'N',23,10,2,'D5'),
                 (48,'V',24,20,2,'D6');
-INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
+INSERT INTO seat ( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 				VALUES  
                 (49,'N',1,10,3,'A1'),
                 (50,'N',2,10,3,'A2'),
@@ -134,7 +132,7 @@ INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
                 (70,'N',22,10,3,'D4'),
                 (71,'N',23,10,3,'D5'),
                 (72,'V',24,20,3,'D6');
-INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
+INSERT INTO seat ( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 				VALUES  
                 (73,'N',1,10,4,'A1'),
                 (74,'N',2,10,4,'A2'),
@@ -160,7 +158,7 @@ INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
                 (94,'N',22,10,4,'D4'),
                 (95,'N',23,10,4,'D5'),
                 (96,'V',24,20,4,'D6');
-INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
+INSERT INTO seat ( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 				VALUES  
                 (97,'N',1,10,5,'A1'),
                 (98,'N',2,10,5,'A2'),
@@ -190,7 +188,7 @@ INSERT INTO SEAT( seat_id,seat_type,seat_number,price,movie_id,seat_name)
 		
 
 
-INSERT INTO RESERVATION(reservation_id,reservation_confirmed_date,reservation_start_timestamp,reservation_end_timestamp,reservation_status,customer_id,seat_id) 
+INSERT INTO reservation(reservation_id,reservation_confirmed_date,reservation_start_timestamp,reservation_end_timestamp,reservation_status,customer_id,seat_id) 
 VALUES(1,"2021-12-18 19:00:00","2021-12-18 20:00:00","2021-12-18 20:10:00","PENDING",NULL,1),
 (2,"2021-12-18 19:00:00","2021-12-18 20:00:00","2021-12-18 20:10:00","PENDING",NULL,2),
 (3,NULL,NULL,NULL,"OPEN",NULL,3),
